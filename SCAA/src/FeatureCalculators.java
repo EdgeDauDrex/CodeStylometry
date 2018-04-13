@@ -37,6 +37,7 @@ public class FeatureCalculators {
     public static String joernTools;
     public static String joernTemplate;
     public static String joernIndex;
+    public static String pythonCommand;
     
     public static void readConfig() throws IOException {
     	BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(configPath)));
@@ -68,6 +69,9 @@ public class FeatureCalculators {
     				break;
     			case "joernIndex":
     				joernIndex = parts[1];
+    				break;
+    			case "pythonCommand":
+    				pythonCommand = parts[1];
     				break;
     			default:
     				//System.err.println("Invalid option: " + parts[0]);
@@ -151,8 +155,23 @@ public class FeatureCalculators {
   			}}*/ 
  	
     	//preprocess to get ast dep and txt files for each cpp file
-  //  	List test_file_paths = Util.listCPPFiles(testFolder); //use this for preprocessing       
-    	List test_file_paths = Util.listCFiles(testFolder); //use this for preprocessing       
+    	List test_file_paths;
+    	switch(language) {
+    		case "c":
+    			test_file_paths = Util.listCFiles(testFolder); //use this for preprocessing     
+    			break;
+    		case "cpp":
+    			test_file_paths = Util.listCPPFiles(testFolder); //use this for preprocessing 
+    			break;
+    		case "python":
+    			test_file_paths = Util.listPythonFiles(testFolder); //not fully supported currently
+    			break;
+    		default:
+    			test_file_paths = Util.listAllFiles(testFolder);
+    			break;
+    	}
+    	      
+    	  
 
 
     	
@@ -219,10 +238,12 @@ public class FeatureCalculators {
                 	File txt = new File (depFileName.substring(0, depFileName.length()-3)+"txt");
                 	File dep = new File (depFileName.substring(0, depFileName.length()-3)+"dep");
                 	File ast = new File (depFileName.substring(0, depFileName.length()-3)+"ast");
+                	File dot = new File (depFileName.substring(0, depFileName.length()-3)+"dot");
    
                 	txt.delete();
                 	dep.delete();
                 	ast.delete();
+                	dot.delete();
                 //preprocessDataToASTFeatures(depFileName.substring(0, depFileName.length()-3)+"cpp");  
         		//preprocessCDataToTXTdepAST(depFileName.substring(0, depFileName.length()-3)+"c");  
 
@@ -952,10 +973,10 @@ public static int functionIDCount (String featureText)
 	
 	       String output_filename = filePath.substring(0, filePath.length()-3).concat("dep");
 	       String cmd1 = "echo \'queryNodeIndex(\"type:Function\").id\' | "
-	       		+ "python /Users/Aylin/git/joern-tools/lookup.py -g |  "
-	       		+ "python /Users/Aylin/git/joern-tools/getAst.py | "
-	       		+ "python /Users/Aylin/git/joern-tools/astlabel.py |  "
-	       		+ "python /Users/Aylin/git/joern-tools/ast2Features.py >" 
+	       		+ "python /Users/Aylin/git/joern-tools/joern-lookup.py -g |  "
+	       		+ "python /Users/Aylin/git/joern-tools/joern-plot-ast.py | "
+	       		+ "python /Users/Aylin/git/joern-tools/joern-astlabel.py |  "
+	       		+ "python /Users/Aylin/git/joern-tools/joern-ast2features.py >" 
 	       		+ output_filename;
 	       
 	       Process joernscripts = dbTime.exec((new String[]{"/bin/sh","-c", cmd1}));
@@ -1018,10 +1039,10 @@ public static int functionIDCount (String featureText)
 	
 	       String output_filename = filePath.substring(0, filePath.length()-1).concat("dep");
 	       String cmd1 = "echo \'queryNodeIndex(\"type:Function\").id\' | "
-	       		+ "python /Users/Aylin/git/joern-tools/lookup.py -g |  "
-	       		+ "python /Users/Aylin/git/joern-tools/getAst.py | "
-	       		+ "python /Users/Aylin/git/joern-tools/astlabel.py |  "
-	       		+ "python /Users/Aylin/git/joern-tools/ast2Features.py >" 
+	       		+ "python /Users/Aylin/git/joern-tools/joern-lookup.py -g |  "
+	       		+ "python /Users/Aylin/git/joern-tools/joern-plot-ast.py | "
+	       		+ "python /Users/Aylin/git/joern-tools/joern-astlabel.py |  "
+	       		+ "python /Users/Aylin/git/joern-tools/joern-ast2features.py >" 
 	       		+ output_filename;
 	       
 	       Process joernscripts = dbTime.exec((new String[]{"/bin/sh","-c", cmd1}));
@@ -1084,10 +1105,10 @@ public static int functionIDCount (String featureText)
 	
 	       String output_filename = filePath.substring(0, filePath.length()-1).concat("dep");
 	       String cmd1 = "echo \'queryNodeIndex(\"type:Function\").id\' | "
-	       		+ "python /Users/Aylin/git/joern-tools/lookup.py -g |  "
-	       		+ "python /Users/Aylin/git/joern-tools/getAst.py | "
-	       		+ "python /Users/Aylin/git/joern-tools/astlabel.py |  "
-	       		+ "python /Users/Aylin/git/joern-tools/ast2Features.py >" 
+	       		+ "python /Users/Aylin/git/joern-tools/joern-lookup.py -g |  "
+	       		+ "python /Users/Aylin/git/joern-tools/joern-plot-ast.py | "
+	       		+ "python /Users/Aylin/git/joern-tools/joern-astlabel.py |  "
+	       		+ "python /Users/Aylin/git/joern-tools/joern-ast2features.py >" 
 	       		+ output_filename;
 	       
 	       Process joernscripts = dbTime.exec((new String[]{"/bin/sh","-c", cmd1}));
@@ -1217,9 +1238,9 @@ public static int functionIDCount (String featureText)
 	
 	       String output_filename = filePath.substring(0, filePath.length()-3).concat("ast");
 	       String cmd1 = "echo \'queryNodeIndex(\"type:Function\").id\' | "
-	       		+ "python /Users/Aylin/git/joern-tools/lookup.py -g |  "
-	       		+ "python /Users/Aylin/git/joern-tools/getAst.py | "
-	       		+ "python /Users/Aylin/git/joern-tools/ast2Features.py >" 
+	       		+ "python /Users/Aylin/git/joern-tools/joern-lookup.py -g |  "
+	       		+ "python /Users/Aylin/git/joern-tools/joern-plot-ast.py | "
+	       		+ "python /Users/Aylin/git/joern-tools/joern-ast2features.py >" 
 	       		+ output_filename;
 	       
 	       Process joernscripts = dbTime.exec((new String[]{"/bin/sh","-c", cmd1}));
@@ -1262,13 +1283,14 @@ public static int functionIDCount (String featureText)
 	       while(br.ready())
 	           System.out.println(br.readLine());
 	       
-	       Process deleteIndex = dbTime.exec(new String[]{"/bin/sh", "-c","rm -r " + joernIndex
+	       Process deleteIndex = dbTime.exec(new String[]{"/bin/sh", "-c","rm -r " + joernIndex + "/.joernIndex"
 	       		//+ "/Users/Aylin/git/joern/.joernIndex"
 	    		   });
 	       deleteIndex.waitFor();
 	
 	       Process joernRun = joernTime.exec(new String[]{"/bin/sh", "-c", 
-	    		   "cd /Users/Aylin/git/joern"+"\n"+ "java -jar " + joernJar
+	    		   "cd "+ joernIndex +
+	       "\n"+ "java -jar " + joernJar
 	    		   		//+ "/Users/Aylin/git/joern/bin/joern.jar "
 	    				   + filePath });
 	       joernRun.waitFor();
@@ -1276,6 +1298,18 @@ public static int functionIDCount (String featureText)
 	       while(br1.ready())
 	           System.out.println(br1.readLine());
 	
+	       //Uncomment this section if there are permission issues
+           /*Process newCommand = scriptTime.exec(new String[]{"/bin/sh", "-c", "sudo chmod -R a+rwX " + joernIndex + "/.joernIndex"});
+           newCommand.waitFor();
+           BufferedReader brnc = new BufferedReader(new InputStreamReader(newCommand.getInputStream()));
+           while(brnc.ready())
+                   System.out.println(brnc.readLine());
+
+           BufferedReader brnc2 = new BufferedReader(new InputStreamReader(newCommand.getErrorStream()));
+           while(brnc2.ready())
+                   System.out.println(brnc2.readLine());*/
+
+	       
 	       Process startDB = dbTime.exec(new String[]{"/bin/sh","-c", neo4jStart
 	    		   //"/Users/Aylin/Desktop/Princeton/Drexel/2014/ARLInternship/joern_related/neo4j-community-1.9.7/bin/neo4j start"        		   
 	       });
@@ -1290,10 +1324,14 @@ public static int functionIDCount (String featureText)
 	
 	       String output_filename = filePath.substring(0, filePath.length()-3).concat("dep");
 	       String cmd1 = "echo \'queryNodeIndex(\"type:Function\").id\' | "
-	       		+ "python /Users/Aylin/git/joern-tools/lookup.py -g |  "
-	       		+ "python /Users/Aylin/git/joern-tools/getAst.py | "
-	       		+ "python /Users/Aylin/git/joern-tools/astlabel.py |  "
-	       		+ "python /Users/Aylin/git/joern-tools/ast2Features.py >" 
+	       /*		+ "python /Users/Aylin/git/joern-tools/joern-lookup.py -g |  "
+	       		+ "python /Users/Aylin/git/joern-tools/joern-plot-ast.py | "
+	       		+ "python /Users/Aylin/git/joern-tools/joern-astlabel.py |  "
+	       		+ "python /Users/Aylin/git/joern-tools/joern-ast2features.py >" */
+	    		   + pythonCommand + " " + joernTools + "/joern-lookup.py -g | "
+	    		   + pythonCommand + " " + joernTools + "/joern-plot-ast.py | "
+	    		   + pythonCommand + " " + joernTools + "/joern-astlabel.py | "
+	    		   + pythonCommand + " " + joernTools + "/joern-ast2features.py >"
 	       		+ output_filename;
 	       
 	       Process joernscripts = dbTime.exec((new String[]{"/bin/sh","-c", cmd1}));
@@ -1311,9 +1349,12 @@ public static int functionIDCount (String featureText)
 	          
 		       String output_filename1 = filePath.substring(0, filePath.length()-3).concat("ast");
 		       String cmd2 = "echo \'queryNodeIndex(\"type:Function\").id\' | "
-		       		+ "python /Users/Aylin/git/joern-tools/lookup.py -g |  "
-		       		+ "python /Users/Aylin/git/joern-tools/getAst.py | "
-		       		+ "python /Users/Aylin/git/joern-tools/ast2Features.py >" 
+		       		/*+ "python /Users/Aylin/git/joern-tools/joern-lookup.py -g |  "
+		       		+ "python /Users/Aylin/git/joern-tools/joern-plot-ast.py | "
+		       		+ "python /Users/Aylin/git/joern-tools/joern-ast2features.py >" */
+		    		   + pythonCommand + " " + joernTools + "/joern-lookup.py -g | "
+		    		   + pythonCommand + " " + joernTools + "/joern-plot-ast.py | "
+		    		   + pythonCommand + " " + joernTools + "/joern-ast2features.py >"
 		       		+ output_filename1;
 		       
 		       Process joernscripts2 = dbTime.exec((new String[]{"/bin/sh","-c", cmd2}));
@@ -1327,10 +1368,30 @@ public static int functionIDCount (String featureText)
 		          while(br8.ready())
 		              System.out.println(br8.readLine());	          
 	          
+			       String output_filename2 = filePath.substring(0, filePath.length()-3).concat("dot");
+			       String cmd3 = "echo \'queryNodeIndex(\"type:Function\").id\' | "
+			       		/*+ "python /Users/Aylin/git/joern-tools/joern-lookup.py -g |  "
+			       		+ "python /Users/Aylin/git/joern-tools/joern-plot-ast.py | "
+			       		+ "python /Users/Aylin/git/joern-tools/joern-ast2features.py >" */
+			    		   + pythonCommand + " " + joernTools + "/joern-lookup.py -g | "
+			    		   + pythonCommand + " " + joernTools + "/joern-plot-ast.py >"
+			       		+ output_filename2;
+			       
+			       Process joernscripts3 = dbTime.exec((new String[]{"/bin/sh","-c", cmd3}));
+			
+			       joernscripts3.waitFor();
+			          BufferedReader bri = new BufferedReader(new InputStreamReader(joernscripts3.getInputStream()));
+			          while(br7.ready())
+			              System.out.println(bri.readLine());
+			         
+			          BufferedReader bre = new BufferedReader(new InputStreamReader(joernscripts3.getErrorStream()));
+			          while(br8.ready())
+			              System.out.println(bre.readLine());	          
 	          
 	      
 		          Process runScript = scriptTime.exec(new String[]{"/bin/sh", "-c", 
-		       		   "cd /Users/Aylin/git/joern-tools"+"\n"+ "python " + joernTemplate
+		       		   //"cd /Users/Aylin/git/joern-tools"+"\n"+ //"python " 
+		          pythonCommand + " " + joernTemplate
 		       		   		//+ "/Users/Aylin/git/joern-tools/template.py"
 		          });
 		          runScript.waitFor();
@@ -1375,13 +1436,14 @@ public static int functionIDCount (String featureText)
 	       while(br.ready())
 	           System.out.println(br.readLine());
 	       
-	       Process deleteIndex = dbTime.exec(new String[]{"/bin/sh", "-c","rm -r " + joernIndex
+	       Process deleteIndex = dbTime.exec(new String[]{"/bin/sh", "-c","rm -r " + joernIndex +"/.joernIndex"
 	       		//+ "/Users/Aylin/git/joern/.joernIndex"
 	    		   });
 	       deleteIndex.waitFor();
 	
 	       Process joernRun = joernTime.exec(new String[]{"/bin/sh", "-c", 
-	    		   "cd /Users/Aylin/git/joern"+"\n"+ "java -jar " + joernJar
+	    		   //"cd /Users/Aylin/git/joern"
+	    		   "cd " + joernIndex +"\n"+ "java -jar " + joernJar
 	    		   		//+ "/Users/Aylin/git/joern/bin/joern.jar " 
 	    				   + filePath });
 	       joernRun.waitFor();
@@ -1389,6 +1451,18 @@ public static int functionIDCount (String featureText)
 	       while(br1.ready())
 	           System.out.println(br1.readLine());
 	
+	       //Uncomment this section if there are permission issues
+           /*Process newCommand = scriptTime.exec(new String[]{"/bin/sh", "-c", "sudo chmod -R a+rwX " + joernIndex + "/.joernIndex"});
+           newCommand.waitFor();
+           BufferedReader brnc = new BufferedReader(new InputStreamReader(newCommand.getInputStream()));
+           while(brnc.ready())
+                   System.out.println(brnc.readLine());
+
+           BufferedReader brnc2 = new BufferedReader(new InputStreamReader(newCommand.getErrorStream()));
+           while(brnc2.ready())
+                   System.out.println(brnc2.readLine());*/
+
+	       
 	       Process startDB = dbTime.exec(new String[]{"/bin/sh","-c", neo4jStart
 	    		  // "/Users/Aylin/Desktop/Princeton/Drexel/2014/ARLInternship/joern_related/neo4j-community-1.9.7/bin/neo4j start"        		   
 	       });
@@ -1403,10 +1477,14 @@ public static int functionIDCount (String featureText)
 	       
 	       String output_filename = filePath.substring(0, filePath.length()-1).concat("dep");
 	       String cmd1 = "echo \'queryNodeIndex(\"type:Function\").id\' | "
-	       		+ "python /Users/Aylin/git/joern-tools/lookup.py -g |  "
-	       		+ "python /Users/Aylin/git/joern-tools/getAst.py | "
-	       		+ "python /Users/Aylin/git/joern-tools/astlabel.py |  "
-	       		+ "python /Users/Aylin/git/joern-tools/ast2Features.py >" 
+/*	       		+ "python /Users/Aylin/git/joern-tools/joern-lookup.py -g |  "
+	       		+ "python /Users/Aylin/git/joern-tools/joern-plot-ast.py | "
+	       		+ "python /Users/Aylin/git/joern-tools/joern-astlabel.py |  "
+	       		+ "python /Users/Aylin/git/joern-tools/joern-ast2features.py >" */
+	    		   + pythonCommand + " " + joernTools + "/joern-lookup.py -g | "
+	    		   + pythonCommand + " " + joernTools + "/joern-plot-ast.py | "
+	    		   + pythonCommand + " " + joernTools + "/joern-astlabel.py | "
+	    		   + pythonCommand + " " + joernTools + "/joern-ast2features.py >"
 	       		+ output_filename;
 	       
 	       Process joernscripts = dbTime.exec((new String[]{"/bin/sh","-c", cmd1}));
@@ -1424,9 +1502,12 @@ public static int functionIDCount (String featureText)
 	          
 		       String output_filename1 = filePath.substring(0, filePath.length()-1).concat("ast");
 		       String cmd2 = "echo \'queryNodeIndex(\"type:Function\").id\' | "
-		       		+ "python /Users/Aylin/git/joern-tools/lookup.py -g |  "
-		       		+ "python /Users/Aylin/git/joern-tools/getAst.py | "
-		       		+ "python /Users/Aylin/git/joern-tools/ast2Features.py >" 
+/*		       		+ "python /Users/Aylin/git/joern-tools/joern-lookup.py -g |  "
+		       		+ "python /Users/Aylin/git/joern-tools/joern-plot-ast.py | "
+		       		+ "python /Users/Aylin/git/joern-tools/joern-ast2features.py >" */
+		    		   + pythonCommand + " " + joernTools + "/joern-lookup.py -g | "
+		    		   + pythonCommand + " " + joernTools + "/joern-plot-ast.py | "
+		    		   + pythonCommand + " " + joernTools + "/joern-ast2features.py >"
 		       		+ output_filename1;
 		       
 		       Process joernscripts2 = dbTime.exec((new String[]{"/bin/sh","-c", cmd2}));
@@ -1440,10 +1521,29 @@ public static int functionIDCount (String featureText)
 		          while(br8.ready())
 		              System.out.println(br8.readLine());	          
 	          
-	          
+			       String output_filename2 = filePath.substring(0, filePath.length()-3).concat("dot");
+			       String cmd3 = "echo \'queryNodeIndex(\"type:Function\").id\' | "
+			       		/*+ "python /Users/Aylin/git/joern-tools/joern-lookup.py -g |  "
+			       		+ "python /Users/Aylin/git/joern-tools/joern-plot-ast.py | "
+			       		+ "python /Users/Aylin/git/joern-tools/joern-ast2features.py >" */
+			    		   + pythonCommand + " " + joernTools + "/joern-lookup.py -g | "
+			    		   + pythonCommand + " " + joernTools + "/joern-plot-ast.py >"
+			       		+ output_filename2;
+			       
+			       Process joernscripts3 = dbTime.exec((new String[]{"/bin/sh","-c", cmd3}));
+			
+			       joernscripts3.waitFor();
+			          BufferedReader bri = new BufferedReader(new InputStreamReader(joernscripts3.getInputStream()));
+			          while(br7.ready())
+			              System.out.println(bri.readLine());
+			         
+			          BufferedReader bre = new BufferedReader(new InputStreamReader(joernscripts3.getErrorStream()));
+			          while(br8.ready())
+			              System.out.println(bre.readLine());	   
 	      
 		          Process runScript = scriptTime.exec(new String[]{"/bin/sh", "-c", 
-		       		   "cd /Users/Aylin/git/joern-tools"+"\n"+ "python " + joernTemplate
+		       		  // "cd /Users/Aylin/git/joern-tools"+"\n"+ //"python " + 
+		          pythonCommand + " " + joernTemplate
 		       		   		//+ "/Users/Aylin/git/joern-tools/template.py"
 		          });
 		          runScript.waitFor();
