@@ -33,7 +33,10 @@ public class FeatureCalculators {
     public static String language;
     public static String neo4jStart;
     public static String neo4jStop;
-    public static String joernStart;
+    public static String joernJar;
+    public static String joernTools;
+    public static String joernTemplate;
+    public static String joernIndex;
     
     public static void readConfig() throws IOException {
     	BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(configPath)));
@@ -54,8 +57,17 @@ public class FeatureCalculators {
     			case "neo4jStop":
     				neo4jStop = parts[1];
     				break;
-    			case "joernStart":
-    				joernStart = parts[1];
+    			case "joernJar":
+    				joernJar = parts[1];
+    				break;
+    			case "joernTools":
+    				joernTools = parts[1];
+    				break;
+    			case "joernTemplate":
+    				joernTemplate = parts[1];
+    				break;
+    			case "joernIndex":
+    				joernIndex = parts[1];
     				break;
     			default:
     				//System.err.println("Invalid option: " + parts[0]);
@@ -68,6 +80,7 @@ public class FeatureCalculators {
     
     public static void main(String[] args) throws Exception, IOException, InterruptedException {
 
+    	readConfig();
  //   	String testFolder = "/Users/Aylin/Desktop/Princeton/Drexel/2014/ARLInternship/SCAA_Datasets/difficultyExp/6FilesPerAuthor_2014_difficult_syntactic/";
    // 	for (int datasetNo=6; datasetNo<150;datasetNo++){
     	//String testFolder ="/Users/Aylin/Desktop/Princeton/BAA/"
@@ -1249,11 +1262,15 @@ public static int functionIDCount (String featureText)
 	       while(br.ready())
 	           System.out.println(br.readLine());
 	       
-	       Process deleteIndex = dbTime.exec(new String[]{"/bin/sh", "-c","rm -r /Users/Aylin/git/joern/.joernIndex"});
+	       Process deleteIndex = dbTime.exec(new String[]{"/bin/sh", "-c","rm -r " + joernIndex
+	       		//+ "/Users/Aylin/git/joern/.joernIndex"
+	    		   });
 	       deleteIndex.waitFor();
 	
 	       Process joernRun = joernTime.exec(new String[]{"/bin/sh", "-c", 
-	    		   "cd /Users/Aylin/git/joern"+"\n"+ "java -jar /Users/Aylin/git/joern/bin/joern.jar " + filePath });
+	    		   "cd /Users/Aylin/git/joern"+"\n"+ "java -jar " + joernJar
+	    		   		//+ "/Users/Aylin/git/joern/bin/joern.jar "
+	    				   + filePath });
 	       joernRun.waitFor();
 	       BufferedReader br1 = new BufferedReader(new InputStreamReader(joernRun.getInputStream()));
 	       while(br1.ready())
@@ -1309,7 +1326,8 @@ public static int functionIDCount (String featureText)
 	          
 	      
 		          Process runScript = scriptTime.exec(new String[]{"/bin/sh", "-c", 
-		       		   "cd /Users/Aylin/git/joern-tools"+"\n"+ "python /Users/Aylin/git/joern-tools/template.py"
+		       		   "cd /Users/Aylin/git/joern-tools"+"\n"+ "python " + joernTemplate
+		       		   		//+ "/Users/Aylin/git/joern-tools/template.py"
 		          });
 		          runScript.waitFor();
 		          
@@ -1353,11 +1371,15 @@ public static int functionIDCount (String featureText)
 	       while(br.ready())
 	           System.out.println(br.readLine());
 	       
-	       Process deleteIndex = dbTime.exec(new String[]{"/bin/sh", "-c","rm -r /Users/Aylin/git/joern/.joernIndex"});
+	       Process deleteIndex = dbTime.exec(new String[]{"/bin/sh", "-c","rm -r " + joernIndex
+	       		//+ "/Users/Aylin/git/joern/.joernIndex"
+	    		   });
 	       deleteIndex.waitFor();
 	
 	       Process joernRun = joernTime.exec(new String[]{"/bin/sh", "-c", 
-	    		   "cd /Users/Aylin/git/joern"+"\n"+ "java -jar /Users/Aylin/git/joern/bin/joern.jar " + filePath });
+	    		   "cd /Users/Aylin/git/joern"+"\n"+ "java -jar " + joernJar
+	    		   		//+ "/Users/Aylin/git/joern/bin/joern.jar " 
+	    				   + filePath });
 	       joernRun.waitFor();
 	       BufferedReader br1 = new BufferedReader(new InputStreamReader(joernRun.getInputStream()));
 	       while(br1.ready())
@@ -1413,7 +1435,8 @@ public static int functionIDCount (String featureText)
 	          
 	      
 		          Process runScript = scriptTime.exec(new String[]{"/bin/sh", "-c", 
-		       		   "cd /Users/Aylin/git/joern-tools"+"\n"+ "python /Users/Aylin/git/joern-tools/template.py"
+		       		   "cd /Users/Aylin/git/joern-tools"+"\n"+ "python " + joernTemplate
+		       		   		//+ "/Users/Aylin/git/joern-tools/template.py"
 		          });
 		          runScript.waitFor();
 		          
