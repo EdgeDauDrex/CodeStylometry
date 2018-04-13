@@ -1283,6 +1283,10 @@ public static int functionIDCount (String featureText)
 	       BufferedReader br2 = new BufferedReader(new InputStreamReader(startDB.getInputStream()));
 	       while(br2.ready())
 	           System.out.println(br2.readLine());
+	       BufferedReader brs = new BufferedReader(new InputStreamReader(startDB.getErrorStream()));
+	       while(brs.ready()){
+	    	   System.out.println(brs.readLine());
+	       }
 	
 	       String output_filename = filePath.substring(0, filePath.length()-3).concat("dep");
 	       String cmd1 = "echo \'queryNodeIndex(\"type:Function\").id\' | "
@@ -1392,7 +1396,11 @@ public static int functionIDCount (String featureText)
 	       BufferedReader br2 = new BufferedReader(new InputStreamReader(startDB.getInputStream()));
 	       while(br2.ready())
 	           System.out.println(br2.readLine());
-	
+	       BufferedReader brs = new BufferedReader(new InputStreamReader(startDB.getErrorStream()));
+	       while(brs.ready()){
+	    	   System.out.println(brs.readLine());
+	       }
+	       
 	       String output_filename = filePath.substring(0, filePath.length()-1).concat("dep");
 	       String cmd1 = "echo \'queryNodeIndex(\"type:Function\").id\' | "
 	       		+ "python /Users/Aylin/git/joern-tools/lookup.py -g |  "
