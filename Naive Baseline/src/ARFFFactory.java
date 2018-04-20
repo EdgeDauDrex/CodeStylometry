@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
+import main.java.Util;
+
 public class ARFFFactory {
 
 	public static AbstractExtractor getExtractor(File f) throws IOException {
