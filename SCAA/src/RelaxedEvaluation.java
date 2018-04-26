@@ -1,4 +1,4 @@
-package main.java;
+
 import weka.classifiers.CostMatrix;
 import weka.classifiers.Evaluation;
 import weka.core.Instance;

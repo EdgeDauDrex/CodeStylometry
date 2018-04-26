@@ -1,5 +1,4 @@
-package main.java;
-// Taken from http://whyjava.wordpress.com/2010/05/04/finding-all-the-indexes-of-a-whole-word-in-a-given-string-using-java/
+
 
 public class IndexWrapper {
  

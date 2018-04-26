@@ -1,4 +1,4 @@
-package main.java;
+
 import weka.attributeSelection.InfoGainAttributeEval;
 import weka.attributeSelection.Ranker;
 import weka.classifiers.*;
