@@ -162,6 +162,7 @@ public class FeatureCalculators {
  	
     	//preprocess to get ast dep and txt files for each cpp file
     	List test_file_paths;
+    	System.out.println(testFolder);
     	switch(language) {
     		case "c":
     			test_file_paths = Util.listCFiles(testFolder); //use this for preprocessing     

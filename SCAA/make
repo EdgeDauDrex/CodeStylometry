@@ -9,6 +9,9 @@ build-run:
 calculator:
 	make compile-calculator && make run-calculator
 
+extractor:
+	make compile-extractor && make run-extractor
+
 clean: 
 	$(RM) -r ./bin && mkdir bin
 
@@ -22,4 +25,4 @@ run-calculator:
 	$(JA) -classpath ./bin:commons-exec-1.2.jar:weka.jar:commons.io_2.0.1.jar:commons-lang3-3.3.2.jar:javacsv.jar FeatureCalculators
 
 run-extractor:
-	$(JA)
+	$(JA) 
