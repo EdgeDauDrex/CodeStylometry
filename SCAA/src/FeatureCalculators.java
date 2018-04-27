@@ -1339,10 +1339,10 @@ public static int functionIDCount (String featureText)
 	    		   + pythonCommand + " " + joernTools + "/joern-plot-ast.py | "
 	    		   + pythonCommand + " " + joernTools + "/joern-astlabel.py | "
 	    		   + pythonCommand + " " + joernTools + "/joern-ast2features.py >"*/
-	    		   + "joern-lookup.py -g | "
-	    		   + "joern-plot-ast.py | "
-	    		   + "joern-astlabel.py | "
-	    		   + "joern-ast2features.py >"
+	    		   + "joern-lookup -g | "
+	    		   + "joern-plot-ast | "
+	    		   + "joern-astlabel | "
+	    		   + "joern-ast2features >"
 	       		+ output_filename;
 	       
 	       Process joernscripts = dbTime.exec((new String[]{"/bin/sh","-c", cmd1}));
@@ -1366,9 +1366,9 @@ public static int functionIDCount (String featureText)
 		    		  /* + pythonCommand + " " + joernTools + "/joern-lookup.py -g | "
 		    		   + pythonCommand + " " + joernTools + "/joern-plot-ast.py | "
 		    		   + pythonCommand + " " + joernTools + "/joern-ast2features.py >"*/
-		    		   + "joern-lookup.py -g | "
-	    		   + "joern-plot-ast.py | "
-	    		   + "joern-ast2features.py >"
+		    		   + "joern-lookup -g | "
+	    		   + "joern-plot-ast | "
+	    		   + "joern-ast2features >"
 		       		+ output_filename1;
 		       
 		       Process joernscripts2 = dbTime.exec((new String[]{"/bin/sh","-c", cmd2}));
@@ -1389,8 +1389,8 @@ public static int functionIDCount (String featureText)
 			       		+ "python /Users/Aylin/git/joern-tools/joern-ast2features.py >" */
 			    		/*   + pythonCommand + " " + joernTools + "/joern-lookup.py -g | "
 			    		   + pythonCommand + " " + joernTools + "/joern-plot-ast.py >"*/
-			    		   + "joern-lookup.py -g | "
-	    		   + "joern-plot-ast.py > "
+			    		   + "joern-lookup -g | "
+	    		   + "joern-plot-ast > "
 			       		+ output_filename2;
 			       
 			       Process joernscripts3 = dbTime.exec((new String[]{"/bin/sh","-c", cmd3}));
@@ -1501,10 +1501,10 @@ public static int functionIDCount (String featureText)
 	    		   + pythonCommand + " " + joernTools + "/joern-plot-ast.py | "
 	    		   + pythonCommand + " " + joernTools + "/joern-astlabel.py | "
 	    		   + pythonCommand + " " + joernTools + "/joern-ast2features.py >"*/
-	    		   + "joern-lookup.py -g | "
-	    		   + "joern-plot-ast.py | "
-	    		   + "joern-astlabel.py | "
-	    		   + "joern-ast2features.py >"
+	    		   + "joern-lookup -g | "
+	    		   + "joern-plot-ast | "
+	    		   + "joern-astlabel | "
+	    		   + "joern-ast2features >"
 	       		+ output_filename;
 	       
 	       Process joernscripts = dbTime.exec((new String[]{"/bin/sh","-c", cmd1}));
@@ -1528,9 +1528,9 @@ public static int functionIDCount (String featureText)
 		    		/*   + pythonCommand + " " + joernTools + "/joern-lookup.py -g | "
 		    		   + pythonCommand + " " + joernTools + "/joern-plot-ast.py | "
 		    		   + pythonCommand + " " + joernTools + "/joern-ast2features.py >"*/
-		    		   + "joern-lookup.py -g | "
-		    		   + "joern-plot-ast.py | "
-		    		   + "joern-ast2features.py >"
+		    		   + "joern-lookup -g | "
+		    		   + "joern-plot-ast | "
+		    		   + "joern-ast2features >"
 		       		+ output_filename1;
 		       
 		       Process joernscripts2 = dbTime.exec((new String[]{"/bin/sh","-c", cmd2}));
@@ -1551,8 +1551,8 @@ public static int functionIDCount (String featureText)
 			       		+ "python /Users/Aylin/git/joern-tools/joern-ast2features.py >" */
 			    		/*   + pythonCommand + " " + joernTools + "/joern-lookup.py -g | "
 			    		   + pythonCommand + " " + joernTools + "/joern-plot-ast.py >"*/
-			    		   + "joern-lookup.py -g | "
-	    		   + "joern-plot-ast.py > "
+			    		   + "joern-lookup -g | "
+	    		   + "joern-plot-ast > "
 			       		+ output_filename2;
 			       
 			       Process joernscripts3 = dbTime.exec((new String[]{"/bin/sh","-c", cmd3}));
