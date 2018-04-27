@@ -237,7 +237,10 @@ public class FeatureExtractor {
 		String featureText = Util.readFile(test_file_paths.get(i).toString());
 		int testIDlength = test_file_paths.get(i).toString().length(); 
 		authorFileName= new File(test_file_paths.get(i).toString());
+		//use this version if all files for the author are in the same directory (and you get different .ast, .dep, and .txt files for each)
 		String authorName= authorFileName.getParentFile().getName();
+		//use this version if all files for the author are in their own directories
+		//String authorName= authorFileName.getParentFile().getParentFile().getName();
 
 		System.out.println(test_file_paths.get(i));
 		System.out.println(authorName);
