@@ -1,7 +1,10 @@
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +19,73 @@ import java.text.SimpleDateFormat;
  */
 
 public class FeatureExtractor {
+	
+	public static final String configPath = "config/featureCalculators.conf";
+    public static String testFolder;
+    public static String language;
+    public static String neo4jStart;
+    public static String neo4jStop;
+    public static String joernJar;
+    public static String joernTools;
+    public static String joernTemplate;
+    public static String joernIndex;
+    public static String pythonCommand;
+    public static String arffName;
+    
+    public static void readConfig() throws IOException {
+    	//ClassLoader classLoader = FeatureCalculators.class.getClass().getClassLoader();
+    	File file = new File(configPath);
+    	System.out.println(file.getAbsolutePath());
+    	//System.out.println(classLoader.getResource(configPath));
+    	BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+    	//BufferedReader reader = new BufferedReader(new InputStreamReader(classLoader.getResourceAsStream(configPath)));
+    	String line = reader.readLine();
+    	String parts[];
+    	while(line != null) {
+    		parts = line.split(" = ", 2);
+    		switch(parts[0]) {
+    			case "testFolder":
+    				testFolder = parts[1];
+    				break;
+    			case "language":
+    				language = parts[1];
+    				break;
+    			case "neo4jStart":
+    				neo4jStart = parts[1];
+    				break;
+    			case "neo4jStop":
+    				neo4jStop = parts[1];
+    				break;
+    			case "joernJar":
+    				joernJar = parts[1];
+    				break;
+    			case "joernTools":
+    				joernTools = parts[1];
+    				break;
+    			case "joernTemplate":
+    				joernTemplate = parts[1];
+    				break;
+    			case "joernIndex":
+    				joernIndex = parts[1];
+    				break;
+    			case "pythonCommand":
+    				pythonCommand = parts[1];
+    				break;
+    			case "featureFile":
+    				arffName = parts[1];
+    				break;
+    			default:
+    				//System.err.println("Invalid option: " + parts[0]);
+    				break;
+    		}
+    		line = reader.readLine();
+    	}
+    	reader.close();
+    }
+	
 	public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
+		
+		readConfig();
 		
 		  String [] cppKeywords = {"alignas",	"alignof",	"and",	"and_eq",	"asm",	"auto",	
 				  "bitand",	"bitor",	"bool",	"break",	"case",	"catch",	"char",	"char16_t",	"char32_t",
@@ -41,11 +110,13 @@ public class FeatureExtractor {
     	//TODO when time changes, output_filename changes every time which needs to be corrected
 //       	String output_filename = "/Users/Aylin/Desktop/Drexel/2014/ARLInternship/SCAAarffs/incremental/" +"CodeJam_14FilesPerAuthor_2014_"+ (month+1) + "." + 
 //    	dayOfMonth + "_"+ time +".arff" ;
-       	for(int numberFiles=2; numberFiles<4; numberFiles++){
-    	String output_filename = "/Users/Aylin/Desktop/Drexel/2014/ARLInternship/SCAAarffs/"
-    			+ "mallory_150/SFS/" +"mallory_SFS_"+numberFiles+".arff" ;
-		String test_dir = "/Users/Aylin/Desktop/Drexel/2014/ARLInternship/SCAA_Datasets/forMallory/mallory_new_SFS/malloryDataset_"+numberFiles+"/";
+       	for(int numberFiles=2; numberFiles<3; numberFiles++){
+       		String output_filename = arffName;
+    	//String output_filename = "/Users/Aylin/Desktop/Drexel/2014/ARLInternship/SCAAarffs/"
+    	//		+ "mallory_150/SFS/" +"mallory_SFS_"+numberFiles+".arff" ;
+		//String test_dir = "/Users/Aylin/Desktop/Drexel/2014/ARLInternship/SCAA_Datasets/forMallory/mallory_new_SFS/malloryDataset_"+numberFiles+"/";
 
+    	String test_dir = testFolder;
        	List test_file_paths = Util.listTextFiles(test_dir);
 
 	String text = "";
