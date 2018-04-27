@@ -122,7 +122,7 @@ public class FeatureExtractor {
 	String text = "";
   	//Writing the test arff
   	//first specify relation
-	Util.writeFile("@relation "+numberFiles+"mallory_dataset_SFS_"+numberFiles+"\n"+"\n", output_filename, true);
+	Util.writeFile("@relation " + "codeStylometryDataset\n"+"\n", output_filename, true);
 	Util.writeFile("@attribute instanceID {", output_filename, true);
    	List test_cpp_paths = Util.listCPPFiles(test_dir);
    	for(int j=0; j < test_cpp_paths.size();j++ )
@@ -153,19 +153,21 @@ public class FeatureExtractor {
     	
 
     //if only interested in syntactic features use this if the dep file contains user input    
- //   String[] ASTtypes =FeatureCalculators.uniqueASTTypes(test_dir);
+    String[] ASTtypes2 =FeatureCalculators.uniqueASTTypes(test_dir);
 
     
-//    for (int i=0; i<APIsymbols.length; i++)	
-//    {	Util.writeFile("@attribute 'APIsymbols["+i+"]' numeric"+"\n", output_filename, true);}
-    /*    for (int i=0; i<APIsymbols.length; i++)	
+    for (int i=0; i<APIsymbols.length; i++)	
+    {	Util.writeFile("@attribute 'APIsymbols["+i+"]' numeric"+"\n", output_filename, true);}
+        for (int i=0; i<APIsymbols.length; i++)	
     {	Util.writeFile("@attribute 'APIsymbolsTFIDF["+i+"]' numeric"+"\n", output_filename, true);}
-    */
-//    for (int i=0; i<ASTtypes.length; i++)	
-//    {	Util.writeFile("@attribute 'ASTtypes["+i+"]' numeric"+"\n", output_filename, true);}
-/*    for (int i=0; i<ASTtypes.length; i++)	
-    {	Util.writeFile("@attribute 'ASTtypesTFIDF["+i+"]' numeric"+"\n", output_filename, true);}
-*/
+    
+    for (int i=0; i<ASTtypes2.length; i++)	
+    {	ASTtypes2[i] = ASTtypes2[i].replace("'", "apostrophesymbol");
+    	Util.writeFile("@attribute 'ASTtypes" + i + "["+ASTtypes2[i]+"]' numeric"+"\n", output_filename, true);}
+    for (int i=0; i<ASTtypes2.length; i++)	
+    {	ASTtypes2[i] = ASTtypes2[i].replace("'", "apostrophesymbol");
+    	Util.writeFile("@attribute 'ASTtypesTFIDF" + i +"["+ASTtypes2[i]+"]' numeric"+"\n", output_filename, true);}
+
       	
     	for (int i=0; i<ASTNodeBigrams.length; i++)		
   	  {  	ASTNodeBigrams[i] = ASTNodeBigrams[i].replace("'", "apostrophesymbol");
@@ -258,25 +260,25 @@ public class FeatureExtractor {
 
 
 		//get count of each API symbol present	 
-/*	    float[] symCount = FeatureCalculators.APISymbolTF(featureText, APIsymbols );
+	    float[] symCount = FeatureCalculators.APISymbolTF(featureText, APIsymbols );
 	    for (int j=0; j<APIsymbols.length; j++)
 		{Util.writeFile(symCount[j]+",", output_filename, true);}	
-*/
-/*		//get tfidf of each API symbol present	 
+
+		//get tfidf of each API symbol present	 
 	    float[] symTFIDF = FeatureCalculators.APISymbolTFIDF(featureText,test_dir, APIsymbols );
 	    for (int j=0; j<APIsymbols.length; j++)
-		{Util.writeFile(symTFIDF[j]+",", output_filename, true);}	 */
+		{Util.writeFile(symTFIDF[j]+",", output_filename, true);}	 
 
 	    
-/*	    //get count of each AST type present	 
-	    float[] typeCount = FeatureCalculators.ASTTypeTF(ASTText, ASTtypes );
-	    for (int j=0; j<ASTtypes.length; j++)
-		{Util.writeFile(typeCount[j] +",", output_filename, true);}	*/
+	    //get count of each AST type present	 
+	    float[] typeCount = FeatureCalculators.ASTTypeTF(ASTText, ASTtypes2 );
+	    for (int j=0; j<ASTtypes2.length; j++)
+		{Util.writeFile(typeCount[j] +",", output_filename, true);}	
 	    
-/*		//get tfidf of each AST Type present	 
-	    float[] astTypeTFIDF = FeatureCalculators.ASTTypeTFIDF(featureText, test_dir, ASTtypes);
-	    for (int j=0; j<ASTtypes.length; j++)
-		{Util.writeFile(astTypeTFIDF[j]+",", output_filename, true);}	*/
+		//get tfidf of each AST Type present	 
+	    float[] astTypeTFIDF = FeatureCalculators.ASTTypeTFIDF(featureText, test_dir, ASTtypes2);
+	    for (int j=0; j<ASTtypes2.length; j++)
+		{Util.writeFile(astTypeTFIDF[j]+",", output_filename, true);}	
 
 	    //get frequency of each ASTnodebigram in CPP source file's AST	 
 		float[] bigramCount = BigramExtractor.getASTNodeBigramsTF(DepASTText, ASTNodeBigrams );
@@ -289,9 +291,9 @@ public class FeatureExtractor {
 		{Util.writeFile(wordUniCount[j] +",", output_filename, true);}	
 	    
 	    //get count of each ASTtype not-DepAST type present	 
-	    float[] typeCount = FeatureCalculators.DepASTTypeTF(DepASTText, ASTtypes );
+	    float[] typeCount2 = FeatureCalculators.DepASTTypeTF(DepASTText, ASTtypes );
 	    for (int j=0; j<ASTtypes.length; j++)
-		{Util.writeFile(typeCount[j] +",", output_filename, true);}	
+		{Util.writeFile(typeCount2[j] +",", output_filename, true);}	
 	    
 		//get tfidf of each AST Type present	 
 	    float[] DepastTypeTFIDF = FeatureCalculators.DepASTTypeTFIDF(DepASTText, test_dir, ASTtypes);
