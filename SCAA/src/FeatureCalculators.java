@@ -1306,7 +1306,7 @@ public static int functionIDCount (String featureText)
 	           System.out.println(br1.readLine());
 	
 	       //Uncomment this section if there are permission issues
-           /*Process newCommand = scriptTime.exec(new String[]{"/bin/sh", "-c", "sudo chmod -R a+rwX " + joernIndex + "/.joernIndex"});
+           Process newCommand = scriptTime.exec(new String[]{"/bin/sh", "-c", "sudo chmod -R 777 " + joernIndex + "/.joernIndex"});
            newCommand.waitFor();
            BufferedReader brnc = new BufferedReader(new InputStreamReader(newCommand.getInputStream()));
            while(brnc.ready())
@@ -1314,7 +1314,7 @@ public static int functionIDCount (String featureText)
 
            BufferedReader brnc2 = new BufferedReader(new InputStreamReader(newCommand.getErrorStream()));
            while(brnc2.ready())
-                   System.out.println(brnc2.readLine());*/
+                   System.out.println(brnc2.readLine());
 
 	       
 	       Process startDB = dbTime.exec(new String[]{"/bin/sh","-c", neo4jStart
