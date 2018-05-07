@@ -1290,7 +1290,7 @@ public static int functionIDCount (String featureText)
 	       while(br.ready())
 	           System.out.println(br.readLine());
 	       
-	       Process deleteIndex = dbTime.exec(new String[]{"/bin/sh", "-c","rm -r " + joernIndex + ".joernIndex"
+	       Process deleteIndex = dbTime.exec(new String[]{"/bin/sh", "-c","rm -r " + joernIndex + "/.joernIndex"
 	       		//+ "/Users/Aylin/git/joern/.joernIndex"
 	    		   });
 	       deleteIndex.waitFor();
@@ -1306,7 +1306,7 @@ public static int functionIDCount (String featureText)
 	           System.out.println(br1.readLine());
 	
 	       //Uncomment this section if there are permission issues
-           Process newCommand = scriptTime.exec(new String[]{"/bin/sh", "-c", "sudo chmod -R 777 " + joernIndex + ".joernIndex"});
+           Process newCommand = scriptTime.exec(new String[]{"/bin/sh", "-c", "sudo chmod -R 777 " + joernIndex + "/.joernIndex"});
            newCommand.waitFor();
            BufferedReader brnc = new BufferedReader(new InputStreamReader(newCommand.getInputStream()));
            while(brnc.ready())
@@ -1339,10 +1339,10 @@ public static int functionIDCount (String featureText)
 	    		   + pythonCommand + " " + joernTools + "/joern-plot-ast.py | "
 	    		   + pythonCommand + " " + joernTools + "/joern-astlabel.py | "
 	    		   + pythonCommand + " " + joernTools + "/joern-ast2features.py >"*/
-	    		   + "joern-lookup -g | "
-	    		   + "joern-plot-ast | "
-	    		   + "joern-astlabel | "
-	    		   + "joern-ast2features >"
+	    		   + joernTools + "joern-lookup -g | "
+	    		   + joernTools + "joern-plot-ast | "
+	    		   + joernTools + "joern-astlabel | "
+	    		   + joernTools + "joern-ast2features >"
 	       		+ output_filename;
 	       
 	       Process joernscripts = dbTime.exec((new String[]{"/bin/sh","-c", cmd1}));
@@ -1366,9 +1366,9 @@ public static int functionIDCount (String featureText)
 		    		  /* + pythonCommand + " " + joernTools + "/joern-lookup.py -g | "
 		    		   + pythonCommand + " " + joernTools + "/joern-plot-ast.py | "
 		    		   + pythonCommand + " " + joernTools + "/joern-ast2features.py >"*/
-		    		   + "joern-lookup -g | "
-	    		   + "joern-plot-ast | "
-	    		   + "joern-ast2features >"
+		    		   + joernTools + "joern-lookup -g | "
+	    		   + joernTools + "joern-plot-ast | "
+	    		   + joernTools + "joern-ast2features >"
 		       		+ output_filename1;
 		       
 		       Process joernscripts2 = dbTime.exec((new String[]{"/bin/sh","-c", cmd2}));
@@ -1389,8 +1389,8 @@ public static int functionIDCount (String featureText)
 			       		+ "python /Users/Aylin/git/joern-tools/joern-ast2features.py >" */
 			    		/*   + pythonCommand + " " + joernTools + "/joern-lookup.py -g | "
 			    		   + pythonCommand + " " + joernTools + "/joern-plot-ast.py >"*/
-			    		   + "joern-lookup -g | "
-	    		   + "joern-plot-ast > "
+			    		   + joernTools + "joern-lookup -g | "
+	    		   + joernTools + "joern-plot-ast > "
 			       		+ output_filename2;
 			       
 			       Process joernscripts3 = dbTime.exec((new String[]{"/bin/sh","-c", cmd3}));
@@ -1452,7 +1452,7 @@ public static int functionIDCount (String featureText)
 	       while(br.ready())
 	           System.out.println(br.readLine());
 	       
-	       Process deleteIndex = dbTime.exec(new String[]{"/bin/sh", "-c","rm -r " + joernIndex +".joernIndex"
+	       Process deleteIndex = dbTime.exec(new String[]{"/bin/sh", "-c","rm -r " + joernIndex +"/.joernIndex"
 	       		//+ "/Users/Aylin/git/joern/.joernIndex"
 	    		   });
 	       deleteIndex.waitFor();
@@ -1468,7 +1468,7 @@ public static int functionIDCount (String featureText)
 	           System.out.println(br1.readLine());
 	
 	       //Uncomment this section if there are permission issues
-           Process newCommand = scriptTime.exec(new String[]{"/bin/sh", "-c", "sudo chmod -R 777 " + joernIndex + ".joernIndex"});
+           Process newCommand = scriptTime.exec(new String[]{"/bin/sh", "-c", "sudo chmod -R 777 " + joernIndex + "/.joernIndex"});
            newCommand.waitFor();
            BufferedReader brnc = new BufferedReader(new InputStreamReader(newCommand.getInputStream()));
            while(brnc.ready())
@@ -1501,10 +1501,10 @@ public static int functionIDCount (String featureText)
 	    		   + pythonCommand + " " + joernTools + "/joern-plot-ast.py | "
 	    		   + pythonCommand + " " + joernTools + "/joern-astlabel.py | "
 	    		   + pythonCommand + " " + joernTools + "/joern-ast2features.py >"*/
-	    		   + "joern-lookup -g | "
-	    		   + "joern-plot-ast | "
-	    		   + "joern-astlabel | "
-	    		   + "joern-ast2features >"
+	    		   + joernTools + "joern-lookup -g | "
+	    		   + joernTools + "joern-plot-ast | "
+	    		   + joernTools + "joern-astlabel | "
+	    		   + joernTools + "joern-ast2features >"
 	       		+ output_filename;
 	       
 	       Process joernscripts = dbTime.exec((new String[]{"/bin/sh","-c", cmd1}));
@@ -1528,9 +1528,9 @@ public static int functionIDCount (String featureText)
 		    		/*   + pythonCommand + " " + joernTools + "/joern-lookup.py -g | "
 		    		   + pythonCommand + " " + joernTools + "/joern-plot-ast.py | "
 		    		   + pythonCommand + " " + joernTools + "/joern-ast2features.py >"*/
-		    		   + "joern-lookup -g | "
-		    		   + "joern-plot-ast | "
-		    		   + "joern-ast2features >"
+		    		   + joernTools + "joern-lookup -g | "
+		    		   + joernTools + "joern-plot-ast | "
+		    		   + joernTools + "joern-ast2features >"
 		       		+ output_filename1;
 		       
 		       Process joernscripts2 = dbTime.exec((new String[]{"/bin/sh","-c", cmd2}));
@@ -1551,8 +1551,8 @@ public static int functionIDCount (String featureText)
 			       		+ "python /Users/Aylin/git/joern-tools/joern-ast2features.py >" */
 			    		/*   + pythonCommand + " " + joernTools + "/joern-lookup.py -g | "
 			    		   + pythonCommand + " " + joernTools + "/joern-plot-ast.py >"*/
-			    		   + "joern-lookup -g | "
-	    		   + "joern-plot-ast > "
+			    		   + joernTools + "joern-lookup -g | "
+	    		   + joernTools + "joern-plot-ast > "
 			       		+ output_filename2;
 			       
 			       Process joernscripts3 = dbTime.exec((new String[]{"/bin/sh","-c", cmd3}));
