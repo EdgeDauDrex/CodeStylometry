@@ -1297,7 +1297,7 @@ public static int functionIDCount (String featureText)
 	
 	       Process joernRun = joernTime.exec(new String[]{"/bin/sh", "-c", 
 	    		   "cd "+ joernIndex +
-	       "\n"+ "java -jar " + joernJar
+	       "\n"+ "java -jar " + joernJar + " "
 	    		   		//+ "/Users/Aylin/git/joern/bin/joern.jar "
 	    				   + filePath });
 	       joernRun.waitFor();
@@ -1463,7 +1463,7 @@ public static int functionIDCount (String featureText)
 	
 	       Process joernRun = joernTime.exec(new String[]{"/bin/sh", "-c", 
 	    		   //"cd /Users/Aylin/git/joern"
-	    		   "cd " + joernIndex +"\n"+ "java -jar " + joernJar
+	    		   "cd " + joernIndex +"\n"+ "java -jar " + joernJar + " "
 	    		   		//+ "/Users/Aylin/git/joern/bin/joern.jar " 
 	    				   + filePath });
 	       joernRun.waitFor();
