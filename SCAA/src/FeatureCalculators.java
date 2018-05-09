@@ -1304,6 +1304,10 @@ public static int functionIDCount (String featureText)
 	       BufferedReader br1 = new BufferedReader(new InputStreamReader(joernRun.getInputStream()));
 	       while(br1.ready())
 	           System.out.println(br1.readLine());
+	       BufferedReader brj = new BufferedReader(new InputStreamReader(joernRun.getErrorStream()));
+	       while(brj.ready()){
+	    	   System.out.println(brj.readLine());
+	       }
 	
 	       //Uncomment this section if there are permission issues
            Process newCommand = scriptTime.exec(new String[]{"/bin/sh", "-c", "sudo chmod -R 777 " + joernIndex + "/.joernIndex"});
@@ -1466,6 +1470,10 @@ public static int functionIDCount (String featureText)
 	       BufferedReader br1 = new BufferedReader(new InputStreamReader(joernRun.getInputStream()));
 	       while(br1.ready())
 	           System.out.println(br1.readLine());
+	       BufferedReader brj = new BufferedReader(new InputStreamReader(joernRun.getErrorStream()));
+	       while(brj.ready()){
+	    	   System.out.println(brj.readLine());
+	       }
 	
 	       //Uncomment this section if there are permission issues
            Process newCommand = scriptTime.exec(new String[]{"/bin/sh", "-c", "sudo chmod -R 777 " + joernIndex + "/.joernIndex"});
