@@ -1281,6 +1281,7 @@ public static int functionIDCount (String featureText)
 		 Runtime dbTime = Runtime.getRuntime();
 		 Runtime joernTime = Runtime.getRuntime();
 		 Runtime scriptTime = Runtime.getRuntime();
+		 File file = new File(filePath);
 	
 	      Process stopDB = dbTime.exec(new String[]{"/bin/sh", "-c", neo4jStop
 	    		   //"/Users/Aylin/Desktop/Princeton/Drexel/2014/ARLInternship/joern_related/neo4j-community-1.9.7/bin/neo4j stop"        		   
@@ -1299,7 +1300,7 @@ public static int functionIDCount (String featureText)
 	    		   "cd "+ joernIndex +
 	       "\n"+ "java -jar " + joernJar + " "
 	    		   		//+ "/Users/Aylin/git/joern/bin/joern.jar "
-	    				   + filePath });
+	    				   + file.getParent() });
 	       joernRun.waitFor();
 	       BufferedReader br1 = new BufferedReader(new InputStreamReader(joernRun.getInputStream()));
 	       while(br1.ready())
@@ -1447,6 +1448,7 @@ public static int functionIDCount (String featureText)
 		 Runtime dbTime = Runtime.getRuntime();
 		 Runtime joernTime = Runtime.getRuntime();
 		 Runtime scriptTime = Runtime.getRuntime();
+		 File file = new File(filePath);
 	
 	      Process stopDB = dbTime.exec(new String[]{"/bin/sh", "-c", neo4jStop
 	    		   //"/Users/Aylin/Desktop/Princeton/Drexel/2014/ARLInternship/joern_related/neo4j-community-1.9.7/bin/neo4j stop"        		   
@@ -1465,7 +1467,7 @@ public static int functionIDCount (String featureText)
 	    		   //"cd /Users/Aylin/git/joern"
 	    		   "cd " + joernIndex +"\n"+ "java -jar " + joernJar + " "
 	    		   		//+ "/Users/Aylin/git/joern/bin/joern.jar " 
-	    				   + filePath });
+	    				   + file.getParent() });
 	       joernRun.waitFor();
 	       BufferedReader br1 = new BufferedReader(new InputStreamReader(joernRun.getInputStream()));
 	       while(br1.ready())
