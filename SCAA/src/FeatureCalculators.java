@@ -1282,7 +1282,9 @@ public static int functionIDCount (String featureText)
 		 Runtime joernTime = Runtime.getRuntime();
 		 Runtime scriptTime = Runtime.getRuntime();
 		 File file = new File(filePath);
+		 String parentPath = file.getParent();
 	
+		 System.out.println(parentPath + " : " + filePath);
 	      Process stopDB = dbTime.exec(new String[]{"/bin/sh", "-c", neo4jStop
 	    		   //"/Users/Aylin/Desktop/Princeton/Drexel/2014/ARLInternship/joern_related/neo4j-community-1.9.7/bin/neo4j stop"        		   
 	       });
@@ -1290,6 +1292,10 @@ public static int functionIDCount (String featureText)
 	       BufferedReader br = new BufferedReader(new InputStreamReader(stopDB.getInputStream()));
 	       while(br.ready())
 	           System.out.println(br.readLine());
+	       BufferedReader brE = new BufferedReader(new InputStreamReader(stopDB.getErrorStream()));
+	       while(brE.ready()) {
+	    	   System.out.println(brE.readLine());
+	       }
 	       
 	       Process deleteIndex = dbTime.exec(new String[]{"/bin/sh", "-c","rm -r " + joernIndex + "/.joernIndex"
 	       		//+ "/Users/Aylin/git/joern/.joernIndex"
@@ -1300,7 +1306,7 @@ public static int functionIDCount (String featureText)
 	    		   "cd "+ joernIndex +
 	       "\n"+ "java -jar " + joernJar + " "
 	    		   		//+ "/Users/Aylin/git/joern/bin/joern.jar "
-	    				   + file.getParent() });
+	    				   + parentPath });
 	       joernRun.waitFor();
 	       BufferedReader br1 = new BufferedReader(new InputStreamReader(joernRun.getInputStream()));
 	       while(br1.ready())
@@ -1424,6 +1430,10 @@ public static int functionIDCount (String featureText)
 		          { //   System.out.println(br3.readLine());
 		          Util.writeFile(br3.readLine().toString() +"\n",output_filename3, true);
 		   	   }		          
+		      	BufferedReader br3E = new BufferedReader(new InputStreamReader(runScript.getErrorStream()));
+		      	while(br3E.ready()) {
+		      		System.out.println(br3E.readLine());
+		      	}
 		          
 		          
 	          
@@ -1449,6 +1459,9 @@ public static int functionIDCount (String featureText)
 		 Runtime joernTime = Runtime.getRuntime();
 		 Runtime scriptTime = Runtime.getRuntime();
 		 File file = new File(filePath);
+		 String parentPath = file.getParent();
+		 
+		 System.out.println(parentPath + " : " + filePath);
 	
 	      Process stopDB = dbTime.exec(new String[]{"/bin/sh", "-c", neo4jStop
 	    		   //"/Users/Aylin/Desktop/Princeton/Drexel/2014/ARLInternship/joern_related/neo4j-community-1.9.7/bin/neo4j stop"        		   
@@ -1457,6 +1470,10 @@ public static int functionIDCount (String featureText)
 	       BufferedReader br = new BufferedReader(new InputStreamReader(stopDB.getInputStream()));
 	       while(br.ready())
 	           System.out.println(br.readLine());
+	       BufferedReader brE = new BufferedReader(new InputStreamReader(stopDB.getErrorStream()));
+	       while(brE.ready()) {
+	    	   System.out.println(brE.readLine());
+	       }
 	       
 	       Process deleteIndex = dbTime.exec(new String[]{"/bin/sh", "-c","rm -r " + joernIndex +"/.joernIndex"
 	       		//+ "/Users/Aylin/git/joern/.joernIndex"
@@ -1467,7 +1484,7 @@ public static int functionIDCount (String featureText)
 	    		   //"cd /Users/Aylin/git/joern"
 	    		   "cd " + joernIndex +"\n"+ "java -jar " + joernJar + " "
 	    		   		//+ "/Users/Aylin/git/joern/bin/joern.jar " 
-	    				   + file.getParent() });
+	    				   + parentPath });
 	       joernRun.waitFor();
 	       BufferedReader br1 = new BufferedReader(new InputStreamReader(joernRun.getInputStream()));
 	       while(br1.ready())
@@ -1590,6 +1607,10 @@ public static int functionIDCount (String featureText)
 		          { //   System.out.println(br3.readLine());
 		          Util.writeFile(br3.readLine().toString() +"\n",output_filename3, true);
 		   	   }		          
+		      	BufferedReader br3E = new BufferedReader(new InputStreamReader(runScript.getErrorStream()));
+		      	while(br3E.ready()) {
+		      		System.out.println(br3E.readLine());
+		      	}
 		          
 		          
 	          
