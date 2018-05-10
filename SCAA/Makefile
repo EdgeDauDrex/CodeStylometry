@@ -7,13 +7,13 @@ build-run:
 	make clean && make compile-extractor && make run-calculator && make run-extractor
 
 calculator:
-	make compile-calculator && make run-calculator
+	make clean && make compile-calculator && make run-calculator
 
 extractor:
-	make compile-extractor && make run-extractor
+	make clean && make compile-extractor && make run-extractor
 
 clean: 
-	$(RM) -r ./bin && mkdir bin
+	$(RM) -r ./bin && mkdir ./bin
 
 compile-calculator: 
 	$(JC) ./src/FeatureCalculators.java ./src/Util.java -sourcepath src/ -classpath .:weka.jar:commons.io_2.0.1.jar:javascv.jar:commons-lang3-3.3.2.jar:commons-exec-1.2.jar -g -d ./bin
