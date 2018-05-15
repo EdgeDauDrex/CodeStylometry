@@ -287,8 +287,10 @@ public class Util {
 
             for(File f : directories)
             {
+            	if(f.listFiles() != null) {
                 subDirectories.addAll(Arrays.asList(f.listFiles((FileFilter)DirectoryFileFilter.INSTANCE)));
                 textFiles.addAll(Arrays.asList(f.listFiles(typeFilter)));
+            	}
             }
 
             directories.clear();
@@ -323,8 +325,10 @@ public class Util {
 
             for(File f : directories)
             {
+            	if(f.listFiles() != null) {
                 subDirectories.addAll(Arrays.asList(f.listFiles((FileFilter)DirectoryFileFilter.INSTANCE)));
                 textFiles.addAll(Arrays.asList(f.listFiles(typeFilter)));
+            	}
             }
 
             directories.clear();
@@ -360,8 +364,10 @@ public class Util {
 
             for(File f : directories)
             {
+            	if(f.listFiles() != null) {
                 subDirectories.addAll(Arrays.asList(f.listFiles((FileFilter)DirectoryFileFilter.INSTANCE)));
                 textFiles.addAll(Arrays.asList(f.listFiles(typeFilter)));
+            	}
             }
 
             directories.clear();
@@ -396,8 +402,10 @@ public class Util {
 
             for(File f : directories)
             {
+            	if(f.listFiles() != null) {
                 subDirectories.addAll(Arrays.asList(f.listFiles((FileFilter)DirectoryFileFilter.INSTANCE)));
                 textFiles.addAll(Arrays.asList(f.listFiles(typeFilter)));
+            	}
             }
 
             directories.clear();
@@ -431,8 +439,10 @@ public class Util {
 
             for(File f : directories)
             {
+            	if(f.listFiles() != null) {
                 subDirectories.addAll(Arrays.asList(f.listFiles((FileFilter)DirectoryFileFilter.INSTANCE)));
                 textFiles.addAll(Arrays.asList(f.listFiles(typeFilter)));
+            	}
             }
 
             directories.clear();
@@ -466,8 +476,10 @@ public class Util {
 
             for(File f : directories)
             {
+            	if(f.listFiles() != null) {
                 subDirectories.addAll(Arrays.asList(f.listFiles((FileFilter)DirectoryFileFilter.INSTANCE)));
                 textFiles.addAll(Arrays.asList(f.listFiles(typeFilter)));
+            	}
             }
 
             directories.clear();
@@ -501,8 +513,10 @@ public class Util {
 
             for(File f : directories)
             {
+            	if(f.listFiles() != null) {
                 subDirectories.addAll(Arrays.asList(f.listFiles((FileFilter)DirectoryFileFilter.INSTANCE)));
                 textFiles.addAll(Arrays.asList(f.listFiles(typeFilter)));
+            	}
             }
 
             directories.clear();
