@@ -517,6 +517,7 @@ public class FeatureCalculators {
 			List test_file_paths = Util.listTextFiles(datasetDir+authorName+"/");
 	 		for(int i=0; i< test_file_paths.size(); i++)
 	 		{
+	 			System.out.println(test_file_paths.get(i).toString());
 	 			String featureText = Util.readFile(test_file_paths.get(i).toString());
 	 		  	 String str = "u'"+APISymbol+"'";
 	 		  	 int termFrequencyAuthor = StringUtils.countMatches(featureText, str);  	
