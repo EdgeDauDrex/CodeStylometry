@@ -1,7 +1,7 @@
 JC = javac
 JA = java
 
-default: calculator
+default: build-run
 
 build-run:
 	make clean && make compile-extractor && make run-calculator && make run-extractor
