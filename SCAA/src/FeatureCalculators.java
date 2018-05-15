@@ -512,13 +512,13 @@ public class FeatureCalculators {
 		 for(int j=0; j< dirLen; j++)
 			{
 			String authorName = directories[j];
-			System.out.println(authorName);
-			System.out.println(datasetDir+authorName+"/");
+			//System.out.println(authorName);
+			//System.out.println(datasetDir+authorName+"/");
 			List test_file_paths = Util.listTextFiles(datasetDir+authorName+"/");
-			System.out.println("Number of test files: " + test_file_paths.size());
+			//System.out.println("Number of test files: " + test_file_paths.size());
 	 		for(int i=0; i< test_file_paths.size(); i++)
 	 		{
-	 			System.out.println(test_file_paths.get(i).toString());
+	 			//System.out.println(test_file_paths.get(i).toString());
 	 			String featureText = Util.readFile(test_file_paths.get(i).toString());
 	 		  	 String str = "u'"+APISymbol+"'";
 	 		  	 int termFrequencyAuthor = StringUtils.countMatches(featureText, str);  	
