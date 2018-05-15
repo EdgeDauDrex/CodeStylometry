@@ -515,6 +515,7 @@ public class FeatureCalculators {
 			System.out.println(authorName);
 			System.out.println(datasetDir+authorName+"/");
 			List test_file_paths = Util.listTextFiles(datasetDir+authorName+"/");
+			System.out.println("Number of test files: " + test_file_paths.size());
 	 		for(int i=0; i< test_file_paths.size(); i++)
 	 		{
 	 			System.out.println(test_file_paths.get(i).toString());
