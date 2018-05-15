@@ -512,6 +512,8 @@ public class FeatureCalculators {
 		 for(int j=0; j< dirLen; j++)
 			{
 			String authorName = directories[j];
+			System.out.println(authorName);
+			System.out.println(datasetDir+authorName+"/");
 			List test_file_paths = Util.listTextFiles(datasetDir+authorName+"/");
 	 		for(int i=0; i< test_file_paths.size(); i++)
 	 		{
@@ -595,6 +597,7 @@ public class FeatureCalculators {
 	    	 @Override
 	     public boolean accept(File current, String name) 
 	    	 {
+	    		 File f = new File(current, name);
 	    		 return new File(current, name).isDirectory();
 			 }
 				   });
