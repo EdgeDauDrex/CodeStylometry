@@ -197,7 +197,10 @@ public class FeatureExtractor {
 	for(int i=0; i< test_file_paths.size(); i++){
 		int testIDlength = test_file_paths.get(i).toString().length();   
 		authorFileName= new File(test_file_paths.get(i).toString());
-		String authorName= authorFileName.getParentFile().getName();
+		//use this version if all files for the author are in the same directory (and you get different .ast, .dep, and .txt files for each)
+		//String authorName= authorFileName.getParentFile().getName();
+		//use this version if all files for the author are in their own directories
+		String authorName= authorFileName.getParentFile().getParentFile().getName();
 
 		text = text.concat(authorName + ",");  
 		String[] words = text.split( ",");
